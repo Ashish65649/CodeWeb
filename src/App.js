@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 
 function App() {
-  const [theme, setTheme] = useState("fa fa-moon");
+  const [theme, setTheme] = useState("fa fa-moon-o");
 
   let timer;
   function execute() {
@@ -23,14 +23,14 @@ function App() {
 
   function changeTheme() {
     var arr = document.querySelectorAll("textarea");
-    if (theme === "fa fa-moon") {
+    if (theme === "fa fa-moon-o") {
       setTheme("fa fa-sun-o");
       for (let i = 0; i < arr.length; i++) {
         arr[i].style.backgroundColor = "#fff";
         arr[i].style.color = "black";
       }
     } else {
-      setTheme("fa fa-moon");
+      setTheme("fa fa-moon-o");
       for (let i = 0; i < arr.length; i++) {
         arr[i].style.backgroundColor = "#2e2e2e";
         arr[i].style.color = "#fff";
@@ -82,7 +82,7 @@ function App() {
             </div>
           </div>
           <div className="code-output">
-            <iframe frameborder="0" title="output" id="output"></iframe>
+            <iframe frameBorder="0" title="output" id="output"></iframe>
           </div>
         </div>
       </div>
