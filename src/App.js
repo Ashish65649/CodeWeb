@@ -53,7 +53,6 @@ function App() {
     });
 
     function execute(htmlCode, cssCode, jsCode) {
-      let timer;
       cssCode = "<style>" + cssCode + "</style>";
       var iframe = document.querySelector("#output");
       document.querySelector("#output").contentDocument.body.innerHTML =
