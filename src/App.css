@@ -32,7 +32,7 @@
 
 #editor1 {
   width: 100%;
-  height: 50%;
+  height: 33.33%;
   font-size: 1rem;
   color: #fff;
 }
@@ -45,48 +45,17 @@
   font-size: 1.5rem;
 }
 
-.css-js {
-  width: 100%;
-  height: 50%;
-  resize: none;
-  border-right: none;
-  outline: none;
-  display: flex;
-  flex-direction: row;
-}
-
 #editor2,
 #editor3 {
-  height: 100%;
-  width: 43%;
+  height: 33.33%;
+  width: 100%;
   font-size: 1rem;
   color: #fff;
-}
-
-#editor3 {
-  width: 57%;
 }
 
 iframe {
   width: 100%;
   height: 100%;
-}
-
-/* Moral of the story is always write media query at the bottom after all the css */
-
-@media (max-width: 1000px) {
-  #editor1 {
-    height: 33.33%;
-  }
-  .css-js {
-    height: 66.67%;
-    flex-direction: column;
-  }
-  #editor2,
-  #editor3 {
-    width: 100%;
-    height: 50%;
-  }
 }
 
 @media (max-width: 500px) {

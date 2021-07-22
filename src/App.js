@@ -11,21 +11,21 @@ function App() {
     editor1.setTheme("ace/theme/cobalt");
     editor1.session.setMode("ace/mode/html");
     editor1.setOptions({
-      placeholder: "Write HTML here...",
+      placeholder: "HTML",
     });
 
     editor2.setTheme("ace/theme/cobalt");
     editor2.session.setMode("ace/mode/css");
     editor2.setShowPrintMargin(false);
     editor2.setOptions({
-      placeholder: "Write CSS here...",
+      placeholder: "CSS (Don't write style tag)",
     });
 
     editor3.setShowPrintMargin(false);
     editor3.setTheme("ace/theme/cobalt");
     editor3.session.setMode("ace/mode/javascript");
     editor3.setOptions({
-      placeholder: "Write JavaScript here...",
+      placeholder: "JS (Don't write script tag)",
     });
 
     editor1.session.on("change", function (delta) {
@@ -59,10 +59,7 @@ function App() {
       document.querySelector("#output").contentDocument.body.innerHTML =
         htmlCode + cssCode;
       try {
-        window.clearTimeout(timer);
-        timer = setTimeout(function () {
-          iframe.contentWindow.eval(jsCode);
-        }, 1000);
+        iframe.contentWindow.eval(jsCode);
       } catch (e) {}
     }
   }, []);
@@ -84,10 +81,8 @@ function App() {
         <div className="column">
           <div className="code-write">
             <div id="editor1" className="toggle"></div>
-            <div className="css-js">
-              <div id="editor2" className="toggle"></div>
-              <div id="editor3" className="toggle"></div>
-            </div>
+            <div id="editor2" className="toggle"></div>
+            <div id="editor3" className="toggle"></div>
           </div>
           <div className="code-output">
             <iframe frameBorder="0" title="output" id="output"></iframe>
