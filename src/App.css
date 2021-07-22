@@ -10,7 +10,7 @@
   padding: 5px;
   height: 60px;
   width: 100%;
-  background-color: #8a8a8a;
+  background-color: #474545;
   color: white;
   font-family: "Noto Sans JP", sans-serif;
 }
@@ -30,6 +30,13 @@
   border-right: 3px solid #8a8a8a;
 }
 
+#editor1 {
+  width: 100%;
+  height: 50%;
+  font-size: 1rem;
+  color: #fff;
+}
+
 .code-output {
   width: 50%;
   height: inherit;
@@ -38,16 +45,9 @@
   font-size: 1.5rem;
 }
 
-.html {
-  height: 50%;
-  resize: none;
-  border-right: none;
-  outline: none;
-}
-
 .css-js {
-  height: 50%;
   width: 100%;
+  height: 50%;
   resize: none;
   border-right: none;
   outline: none;
@@ -55,22 +55,16 @@
   flex-direction: row;
 }
 
-.css,
-.js {
-  width: 50%;
-  resize: none;
-  outline: none;
+#editor2,
+#editor3 {
+  height: 100%;
+  width: 43%;
+  font-size: 1rem;
+  color: #fff;
 }
 
-textarea {
-  font-size: 1rem;
-  font-weight: bold;
-  padding: 0.3rem;
-  font-family: "Noto Sans JP", sans-serif;
-  background-color: #2e2e2e;
-  color: #fff;
-  letter-spacing: 2px;
-  border-right: none;
+#editor3 {
+  width: 57%;
 }
 
 iframe {
@@ -81,15 +75,15 @@ iframe {
 /* Moral of the story is always write media query at the bottom after all the css */
 
 @media (max-width: 1000px) {
-  .html {
+  #editor1 {
     height: 33.33%;
   }
   .css-js {
     height: 66.67%;
     flex-direction: column;
   }
-  .css,
-  .js {
+  #editor2,
+  #editor3 {
     width: 100%;
     height: 50%;
   }

@@ -1,42 +1,71 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 
 function App() {
-  const [theme, setTheme] = useState("fa fa-moon-o");
+  useEffect(() => {
+    let editor1 = window.ace.edit("editor1");
+    let editor2 = window.ace.edit("editor2");
+    let editor3 = window.ace.edit("editor3");
 
-  let timer;
-  function execute() {
-    var htmlCode = document.querySelector("#html-code").value;
-    var cssCode =
-      "<style>" + document.querySelector("#css-code").value + "</style>";
-    var jsCode = document.querySelector("#js-code").value;
-    var iframe = document.querySelector("#output");
-    document.querySelector("#output").contentDocument.body.innerHTML =
-      htmlCode + cssCode;
-    try {
-      window.clearTimeout(timer);
-      timer = setTimeout(function () {
-        iframe.contentWindow.eval(jsCode);
-      }, 1000);
-    } catch (e) {}
-  }
+    editor1.setShowPrintMargin(false);
+    editor1.setTheme("ace/theme/cobalt");
+    editor1.session.setMode("ace/mode/html");
+    editor1.setOptions({
+      placeholder: "Write HTML here...",
+    });
 
-  function changeTheme() {
-    var arr = document.querySelectorAll("textarea");
-    if (theme === "fa fa-moon-o") {
-      setTheme("fa fa-sun-o");
-      for (let i = 0; i < arr.length; i++) {
-        arr[i].style.backgroundColor = "#fff";
-        arr[i].style.color = "black";
-      }
-    } else {
-      setTheme("fa fa-moon-o");
-      for (let i = 0; i < arr.length; i++) {
-        arr[i].style.backgroundColor = "#2e2e2e";
-        arr[i].style.color = "#fff";
-      }
+    editor2.setTheme("ace/theme/cobalt");
+    editor2.session.setMode("ace/mode/css");
+    editor2.setShowPrintMargin(false);
+    editor2.setOptions({
+      placeholder: "Write CSS here...",
+    });
+
+    editor3.setShowPrintMargin(false);
+    editor3.setTheme("ace/theme/cobalt");
+    editor3.session.setMode("ace/mode/javascript");
+    editor3.setOptions({
+      placeholder: "Write JavaScript here...",
+    });
+
+    editor1.session.on("change", function (delta) {
+      execute(
+        editor1.getSession().getValue(),
+        editor2.getSession().getValue(),
+        editor3.getSession().getValue()
+      );
+    });
+
+    editor2.session.on("change", function (delta) {
+      execute(
+        editor1.getSession().getValue(),
+        editor2.getSession().getValue(),
+        editor3.getSession().getValue()
+      );
+    });
+
+    editor3.session.on("change", function (delta) {
+      execute(
+        editor1.getSession().getValue(),
+        editor2.getSession().getValue(),
+        editor3.getSession().getValue()
+      );
+    });
+
+    function execute(htmlCode, cssCode, jsCode) {
+      let timer;
+      cssCode = "<style>" + cssCode + "</style>";
+      var iframe = document.querySelector("#output");
+      document.querySelector("#output").contentDocument.body.innerHTML =
+        htmlCode + cssCode;
+      try {
+        window.clearTimeout(timer);
+        timer = setTimeout(function () {
+          iframe.contentWindow.eval(jsCode);
+        }, 1000);
+      } catch (e) {}
     }
-  }
+  }, []);
 
   return (
     <>
@@ -44,8 +73,7 @@ function App() {
         <p className="header">
           CodeWeb
           <i
-            onClick={changeTheme}
-            className={theme}
+            className="fa fa-moon-o"
             style={{
               float: "right",
               marginTop: "0.5rem",
@@ -55,28 +83,10 @@ function App() {
         </p>
         <div className="column">
           <div className="code-write">
-            <textarea
-              id="html-code"
-              spellCheck="false"
-              className="html"
-              placeholder="HTML"
-              onInput={execute}
-            ></textarea>
+            <div id="editor1" className="toggle"></div>
             <div className="css-js">
-              <textarea
-                id="css-code"
-                spellCheck="false"
-                className="css"
-                onInput={execute}
-                placeholder="CSS (Don't write style tag)"
-              />
-              <textarea
-                id="js-code"
-                spellCheck="false"
-                className="js"
-                onInput={execute}
-                placeholder="Javascript (Don't write script tag)"
-              />
+              <div id="editor2" className="toggle"></div>
+              <div id="editor3" className="toggle"></div>
             </div>
           </div>
           <div className="code-output">
@@ -89,3 +99,25 @@ function App() {
 }
 
 export default App;
+
+// const [theme, setTheme] = useState("fa fa-moon-o");
+
+// function changeTheme() {
+//   var arr = document.querySelectorAll(".toggle");
+//   if (theme === "fa fa-moon-o") {
+//     setTheme("fa fa-sun-o");
+//     for (let i = 0; i < arr.length; i++) {
+//       arr[i].style.backgroundColor = "#CCCCFF";
+//       arr[i].style.color = "black";
+//       window.editor1.setHighlightActiveLine(false);
+//       window.editor2.setHighlightActiveLine(false);
+//       window.editor3.setHighlightActiveLine(false);
+//     }
+//   } else {
+//     setTheme("fa fa-moon-o");
+//     for (let i = 0; i < arr.length; i++) {
+//       arr[i].style.backgroundColor = "#2F3129";
+//       arr[i].style.color = "#fff";
+//     }
+//   }
+// }
