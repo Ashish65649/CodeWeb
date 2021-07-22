@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 
 function App() {
+  const [theme, setTheme] = useState("fa fa-moon");
+
   let timer;
   function execute() {
     var htmlCode = document.querySelector("#html-code").value;
@@ -19,14 +21,38 @@ function App() {
     } catch (e) {}
   }
 
-  function keyPress() {
-    window.clearTimeout(timer);
+  function changeTheme() {
+    var arr = document.querySelectorAll("textarea");
+    if (theme === "fa fa-moon") {
+      setTheme("fa fa-sun-o");
+      for (let i = 0; i < arr.length; i++) {
+        arr[i].style.backgroundColor = "#fff";
+        arr[i].style.color = "black";
+      }
+    } else {
+      setTheme("fa fa-moon");
+      for (let i = 0; i < arr.length; i++) {
+        arr[i].style.backgroundColor = "#2e2e2e";
+        arr[i].style.color = "#fff";
+      }
+    }
   }
 
   return (
     <>
       <div className="editor">
-        <p className="header"> CodeWeb </p>
+        <p className="header">
+          CodeWeb
+          <i
+            onClick={changeTheme}
+            className={theme}
+            style={{
+              float: "right",
+              marginTop: "0.5rem",
+              marginRight: "0.5rem",
+            }}
+          ></i>
+        </p>
         <div className="column">
           <div className="code-write">
             <div className="row">
@@ -43,21 +69,20 @@ function App() {
                   spellCheck="false"
                   className="css"
                   onInput={execute}
-                  placeholder="CSS"
+                  placeholder="CSS (Don't write style tag)"
                 />
                 <textarea
                   id="js-code"
                   spellCheck="false"
                   className="js"
-                  onKeyUp={execute}
-                  onKeyPress={keyPress}
+                  onInput={execute}
                   placeholder="Javascript (Don't write script tag)"
                 />
               </div>
             </div>
           </div>
           <div className="code-output">
-            <iframe title="output" id="output"></iframe>
+            <iframe frameborder="0" title="output" id="output"></iframe>
           </div>
         </div>
       </div>
