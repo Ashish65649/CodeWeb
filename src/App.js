@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 
 function App() {
+  let timer;
   function execute() {
     var htmlCode = document.querySelector("#html-code").value;
     var cssCode =
@@ -11,8 +12,15 @@ function App() {
     document.querySelector("#output").contentDocument.body.innerHTML =
       htmlCode + cssCode;
     try {
-      iframe.contentWindow.eval(jsCode);
+      window.clearTimeout(timer);
+      timer = setTimeout(function () {
+        iframe.contentWindow.eval(jsCode);
+      }, 2000);
     } catch (e) {}
+  }
+
+  function keyPress() {
+    window.clearTimeout(timer);
   }
 
   return (
@@ -26,7 +34,7 @@ function App() {
                 id="html-code"
                 spellCheck="false"
                 className="html"
-                placeholder="Write html code here"
+                placeholder="HTML"
                 onInput={execute}
               ></textarea>
               <div className="css-js">
@@ -35,14 +43,15 @@ function App() {
                   spellCheck="false"
                   className="css"
                   onInput={execute}
-                  placeholder="Write css code here"
+                  placeholder="CSS"
                 />
                 <textarea
                   id="js-code"
                   spellCheck="false"
                   className="js"
-                  onInput={execute}
-                  placeholder="Write js code here(Don't write script tag)"
+                  onKeyUp={execute}
+                  onKeyPress={keyPress}
+                  placeholder="Javascript (Don't write script tag)"
                 />
               </div>
             </div>
