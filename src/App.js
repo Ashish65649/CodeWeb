@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
@@ -10,23 +10,14 @@ function App() {
     editor1.setShowPrintMargin(false);
     editor1.setTheme("ace/theme/cobalt");
     editor1.session.setMode("ace/mode/html");
-    editor1.setOptions({
-      placeholder: "HTML",
-    });
 
     editor2.setTheme("ace/theme/cobalt");
     editor2.session.setMode("ace/mode/css");
     editor2.setShowPrintMargin(false);
-    editor2.setOptions({
-      placeholder: "CSS (Don't write style tag)",
-    });
 
     editor3.setShowPrintMargin(false);
     editor3.setTheme("ace/theme/cobalt");
     editor3.session.setMode("ace/mode/javascript");
-    editor3.setOptions({
-      placeholder: "JS (Don't write script tag)",
-    });
 
     editor1.session.on("change", function (delta) {
       execute(
@@ -63,13 +54,51 @@ function App() {
     }
   }, []);
 
+  const [theme, setTheme] = useState("fa fa-moon-o");
+
+  function changeTheme() {
+    let editor1 = window.ace.edit("editor1");
+    let editor2 = window.ace.edit("editor2");
+    let editor3 = window.ace.edit("editor3");
+    if (theme === "fa fa-moon-o") {
+      document.querySelector("#editor1").style.color = "black";
+      document.querySelector("#editor2").style.color = "black";
+      document.querySelector("#editor3").style.color = "black";
+      setTheme("fa fa-sun-o");
+      editor1.setOptions({
+        theme: "ace/theme/kuroir",
+      });
+      editor2.setOptions({
+        theme: "ace/theme/kuroir",
+      });
+      editor3.setOptions({
+        theme: "ace/theme/kuroir",
+      });
+    } else {
+      document.querySelector("#editor1").style.color = "white";
+      document.querySelector("#editor2").style.color = "white";
+      document.querySelector("#editor3").style.color = "white";
+      setTheme("fa fa-moon-o");
+      editor1.setOptions({
+        theme: "ace/theme/cobalt",
+      });
+      editor2.setOptions({
+        theme: "ace/theme/cobalt",
+      });
+      editor3.setOptions({
+        theme: "ace/theme/cobalt",
+      });
+    }
+  }
+
   return (
     <>
       <div className="editor">
         <p className="header">
           CodeWeb
           <i
-            className="fa fa-moon-o"
+            onClick={changeTheme}
+            className={theme}
             style={{
               float: "right",
               marginTop: "0.5rem",
@@ -79,8 +108,11 @@ function App() {
         </p>
         <div className="column">
           <div className="code-write">
+            <p className="info"> HTML </p>
             <div id="editor1" className="toggle"></div>
+            <p className="info"> CSS </p>
             <div id="editor2" className="toggle"></div>
+            <p className="info"> Javascript </p>
             <div id="editor3" className="toggle"></div>
           </div>
           <div className="code-output">
@@ -93,25 +125,3 @@ function App() {
 }
 
 export default App;
-
-// const [theme, setTheme] = useState("fa fa-moon-o");
-
-// function changeTheme() {
-//   var arr = document.querySelectorAll(".toggle");
-//   if (theme === "fa fa-moon-o") {
-//     setTheme("fa fa-sun-o");
-//     for (let i = 0; i < arr.length; i++) {
-//       arr[i].style.backgroundColor = "#CCCCFF";
-//       arr[i].style.color = "black";
-//       window.editor1.setHighlightActiveLine(false);
-//       window.editor2.setHighlightActiveLine(false);
-//       window.editor3.setHighlightActiveLine(false);
-//     }
-//   } else {
-//     setTheme("fa fa-moon-o");
-//     for (let i = 0; i < arr.length; i++) {
-//       arr[i].style.backgroundColor = "#2F3129";
-//       arr[i].style.color = "#fff";
-//     }
-//   }
-// }
