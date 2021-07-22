@@ -55,30 +55,28 @@ function App() {
         </p>
         <div className="column">
           <div className="code-write">
-            <div className="row">
+            <textarea
+              id="html-code"
+              spellCheck="false"
+              className="html"
+              placeholder="HTML"
+              onInput={execute}
+            ></textarea>
+            <div className="css-js">
               <textarea
-                id="html-code"
+                id="css-code"
                 spellCheck="false"
-                className="html"
-                placeholder="HTML"
+                className="css"
                 onInput={execute}
-              ></textarea>
-              <div className="css-js">
-                <textarea
-                  id="css-code"
-                  spellCheck="false"
-                  className="css"
-                  onInput={execute}
-                  placeholder="CSS (Don't write style tag)"
-                />
-                <textarea
-                  id="js-code"
-                  spellCheck="false"
-                  className="js"
-                  onInput={execute}
-                  placeholder="Javascript (Don't write script tag)"
-                />
-              </div>
+                placeholder="CSS (Don't write style tag)"
+              />
+              <textarea
+                id="js-code"
+                spellCheck="false"
+                className="js"
+                onInput={execute}
+                placeholder="Javascript (Don't write script tag)"
+              />
             </div>
           </div>
           <div className="code-output">
