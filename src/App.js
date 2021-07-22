@@ -15,7 +15,7 @@ function App() {
       window.clearTimeout(timer);
       timer = setTimeout(function () {
         iframe.contentWindow.eval(jsCode);
-      }, 2000);
+      }, 1000);
     } catch (e) {}
   }
 
